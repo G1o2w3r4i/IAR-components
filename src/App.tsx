@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { InputComponentsPreview } from './components/preview/InputComponentsPreview';
 import { ButtonComponentsPreview } from './components/preview/ButtonComponentsPreview';
+import { CustomTablePreview } from './components/preview/CustomTablePreview';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'inputs' | 'buttons'>('buttons');
+  const [activeTab, setActiveTab] = useState<'inputs' | 'buttons' | 'custom-table'>('buttons');
 
   return (
     <div>
@@ -18,7 +19,7 @@ export function App() {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
-            Buttons
+            Buttons & Table
           </button>
           <button
             onClick={() => setActiveTab('inputs')}
@@ -30,11 +31,27 @@ export function App() {
           >
             Inputs
           </button>
+          {/* <button
+            onClick={() => setActiveTab('custom-table')}
+            className={`px-6 py-2 font-semibold rounded transition-colors ${
+              activeTab === 'custom-table'
+                ? 'bg-slate-900 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Custom Table
+          </button> */}
         </div>
       </div>
 
       {/* Content */}
-      {activeTab === 'buttons' ? <ButtonComponentsPreview /> : <InputComponentsPreview />}
+      {activeTab === 'buttons' ? (
+        <ButtonComponentsPreview />
+      ) : activeTab === 'inputs' ? (
+        <InputComponentsPreview />
+      ) : (
+        <CustomTablePreview />
+      )}
     </div>
   );
 }

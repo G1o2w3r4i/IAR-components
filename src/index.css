@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-slate-950: var(--black);
+  --color-slate-900: var(--grey-900);
+  --color-slate-800: var(--grey-dark);
+  --color-slate-700: var(--jj-grey-dark);
+  --color-slate-600: var(--jj-grey);
+  --color-slate-500: var(--jj-grey);
+  --color-slate-400: var(--grey);
+  --color-slate-300: var(--grey-300);
+  --color-slate-200: var(--jj-grey-light);
+  --color-slate-100: var(--jj-grey-extra-light);
+  --color-slate-50: var(--grey-50);
+  --color-gray-900: var(--grey-900);
+  --color-gray-800: var(--grey-dark);
+  --color-gray-700: var(--jj-grey-dark);
+  --color-gray-600: var(--jj-grey);
+  --color-gray-500: var(--grey);
+  --color-gray-400: var(--grey);
+  --color-gray-300: var(--grey-300);
+  --color-gray-200: var(--jj-grey-light);
+  --color-gray-100: var(--jj-grey-extra-light);
+  --color-gray-50: var(--grey-50);
+  --color-blue-700: var(--jj-blue);
+  --color-blue-600: var(--blue-bright);
+  --color-blue-500: var(--blue-bright);
+  --color-blue-200: var(--columbia);
+  --color-blue-100: var(--blue-extra-light);
+  --color-blue-50: var(--blue-light);
+  --color-red-700: var(--jj-red-dark);
+  --color-red-600: var(--jj-red);
+  --color-red-500: var(--jj-red);
+  --color-red-100: var(--red-light);
+  --color-green-700: var(--green-300);
+  --color-green-500: var(--green-light);
+  --color-amber-500: var(--orange);
+  --color-orange-500: var(--orange);
+}
+
 @layer base {
   *,
   ::after,
@@ -14,14 +54,46 @@
   html,
   body {
     height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #1e293b;
-    background-color: #f8fafc;
+    font-family: "jj-circular", Arial, Helvetica, sans-serif;
+    color: var(--ara-body-text);
+    background-color: var(--ara-body-bg);
     -webkit-font-smoothing: antialiased;
   }
 
   #root {
     min-height: 100%;
     width: 100%;
+  }
+}
+
+@layer components {
+  .custom-audit-table .strength {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .custom-audit-table .strength::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.28rem;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .custom-audit-table .strengthLow::before,
+  .custom-audit-table .strengthNone::before {
+    background-color: var(--ara-risk-low);
+  }
+
+  .custom-audit-table .strengthModerate::before {
+    background-color: var(--ara-risk-medium);
+  }
+
+  .custom-audit-table .strengthHigh::before,
+  .custom-audit-table .strengthVeryHigh::before {
+    background-color: var(--ara-risk-high);
   }
 }

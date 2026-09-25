@@ -1,5 +1,5 @@
-import React from 'react';
-import { SharedButton } from '../shared';
+import React, { useMemo, useState } from 'react';
+import { SharedButton, SharedTable, type TableColumn } from '../shared';
 
 /**
  * ButtonComponentsPreview
@@ -9,7 +9,85 @@ import { SharedButton } from '../shared';
  * - Send For Approval button (green solid)
  * - REMOVE AUDIT button (gray outline)
  */
+type PreviewRow = {
+  id: number;
+  name: string;
+  owner: string;
+  status: string;
+  risk: string;
+  updated: string;
+  amount: string;
+};
+
+const referenceColumns: TableColumn<any>[] = [
+  { id: 'auditPlan', label: 'Audit Plan', width: '18%', render: (row: any) => <span className="font-semibold text-slate-700">{row.auditCode}</span> },
+  { id: 'dateReceived', label: 'Date Received', width: '18%', render: (row: any) => <span>{row.dateReceived}</span> },
+  { id: 'submittedBy', label: 'Submitted By', width: '19%', render: (row: any) => <span>{row.submittedBy}</span> },
+  { id: 'approval', label: 'Approval For', width: '22%', render: (row: any) => <span>{row.approval}</span> },
+  { id: 'dateCompleted', label: 'Date Completed / Canceled', width: '17%', render: (row: any) => <span>{row.dateCompleted}</span> },
+  { id: 'status', label: 'Request Status', width: '12%', align: 'right', render: (row: any) => <span>{row.status === 'PENDING' ? 'PENDING' : 'COMPLETE'}</span> },
+];
+
+const referenceRows = [
+  { auditCode: 'RBR 2003', dateReceived: 'October 15, 2025 at 6:24:57 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 1 Audit Plan (ALT Approval)', dateCompleted: '-', status: 'PENDING' },
+  { auditCode: 'RBR 1909', dateReceived: 'October 13, 2025 at 11:41:38 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 2 Audit Plan (SALT Approval)', dateCompleted: 'October 13, 2025 at 12:27:45 PM', status: 'COMPLETE' },
+  { auditCode: 'RBR 1909', dateReceived: 'October 13, 2025 at 11:28:07 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 1 Audit Plan (SALT Approval)', dateCompleted: 'October 13, 2025 at 12:19:27 PM', status: 'COMPLETE' },
+  { auditCode: 'RBR 1915', dateReceived: 'October 13, 2025 at 7:40:57 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 2 Audit Plan (SALT Approval)', dateCompleted: 'October 13, 2025 at 11:19:24 AM', status: 'COMPLETE' },
+  { auditCode: 'RBR 1915', dateReceived: 'October 13, 2025 at 7:08:06 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 1 Audit Plan (SALT Approval)', dateCompleted: 'October 13, 2025 at 7:32:43 AM', status: 'COMPLETE' },
+  { auditCode: 'RBR 1914', dateReceived: 'October 13, 2025 at 4:49:35 AM', submittedBy: 'Avinash Sharma', approval: 'Phase 2 Audit Plan (SALT Approval)', dateCompleted: 'October 13, 2025 at 6:52:27 AM', status: 'COMPLETE' },
+];
+
+const genericColumns: TableColumn<PreviewRow>[] = [
+  { id: 'name', label: 'Name', field: 'name', sortable: true, width: '32%' },
+  { id: 'owner', label: 'Owner', field: 'owner', sortable: true, width: '18%' },
+  { id: 'status', label: 'Status', field: 'status', sortable: true, width: '16%' },
+  { id: 'risk', label: 'Risk', field: 'risk', sortable: true, width: '14%' },
+  { id: 'updated', label: 'Updated', field: 'updated', sortable: true, width: '12%' },
+  { id: 'amount', label: 'Amount', field: 'amount', sortable: true, align: 'right', width: '8%' },
+];
+
+const genericRows: PreviewRow[] = [
+  { id: 1, name: 'Quarterly Controls Review', owner: 'A. Smith', status: 'In Review', risk: 'Low', updated: '2 days ago', amount: '$12.4K' },
+  { id: 2, name: 'Vendor Risk Assessment', owner: 'J. Brooks', status: 'Approved', risk: 'Medium', updated: '4 days ago', amount: '$18.7K' },
+  { id: 3, name: 'Policy Exception Register', owner: 'R. Chen', status: 'Pending', risk: 'High', updated: '1 week ago', amount: '$7.2K' },
+  { id: 4, name: 'Access Review Cycle', owner: 'M. Gomez', status: 'Draft', risk: 'Low', updated: '3 days ago', amount: '$5.8K' },
+  { id: 5, name: 'Cloud Security Audit', owner: 'L. Patel', status: 'Submitted', risk: 'Medium', updated: '5 days ago', amount: '$22.1K' },
+  { id: 6, name: 'Data Retention Review', owner: 'N. Walker', status: 'Approved', risk: 'Low', updated: '6 days ago', amount: '$9.6K' },
+  { id: 7, name: 'Internal Compliance Check', owner: 'D. Lee', status: 'In Review', risk: 'High', updated: '1 day ago', amount: '$14.8K' },
+  { id: 8, name: 'Third Party Review', owner: 'S. Jordan', status: 'Pending', risk: 'Medium', updated: '2 weeks ago', amount: '$3.4K' },
+];
+
 export const ButtonComponentsPreview: React.FC = () => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [sortField, setSortField] = useState<string | null>('name');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  const sortedRows = useMemo(() => {
+    if (!sortField) {
+      return genericRows;
+    }
+
+    const sorted = [...genericRows].sort((a, b) => {
+      const left = String(a[sortField as keyof PreviewRow] ?? '');
+      const right = String(b[sortField as keyof PreviewRow] ?? '');
+      return left.localeCompare(right) * (sortDirection === 'asc' ? 1 : -1);
+    });
+
+    return sorted;
+  }, [sortField, sortDirection]);
+
+  const paginatedRows = useMemo(() => {
+    const start = page * rowsPerPage;
+    return sortedRows.slice(start, start + rowsPerPage);
+  }, [page, rowsPerPage, sortedRows]);
+
+  const handleSortChange = (field: string, direction: 'asc' | 'desc') => {
+    setSortField(field);
+    setSortDirection(direction);
+    setPage(0);
+  };
+
   return (
     <div className="p-8 space-y-12 bg-gray-50 min-h-screen">
       {/* ────────────────────────────────────────────────────────────── */}
@@ -224,6 +302,121 @@ export const ButtonComponentsPreview: React.FC = () => {
           <SharedButton variant="outline" fullWidth>
             REMOVE AUDIT
           </SharedButton>
+        </div>
+      </section>
+
+      {/* ────────────────────────────────────────────────────────────── */}
+      {/* SharedTable Preview */}
+      {/* ────────────────────────────────────────────────────────────── */}
+      <section className="bg-[#f5f5f4] p-0 shadow-none">
+        <div className="overflow-hidden rounded-none border border-slate-200 bg-white">
+          <SharedTable
+            columns={referenceColumns}
+            rows={referenceRows}
+            stickyHeader
+            showPagination={false}
+            noBorder
+            className="border-0 shadow-none"
+          />
+        </div>
+      </section>
+
+      <section className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-xl font-semibold text-slate-800 mb-4">
+          SharedTable States and Behaviors
+        </h2>
+
+        <div className="space-y-8">
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Basic table</h3>
+            <SharedTable columns={genericColumns} rows={genericRows.slice(0, 4)} stickyHeader />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Dense table</h3>
+            <SharedTable columns={genericColumns} rows={genericRows.slice(0, 3)} dense stickyHeader />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Sorting + pagination</h3>
+            <SharedTable
+              columns={genericColumns.map((column) => ({ ...column, sortable: column.id !== 'amount' }))}
+              rows={paginatedRows}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              totalCount={sortedRows.length}
+              onPageChange={setPage}
+              onRowsPerPageChange={(value) => {
+                setRowsPerPage(value);
+                setPage(0);
+              }}
+              sortField={sortField}
+              sortDirection={sortDirection}
+              onSortChange={handleSortChange}
+              stickyHeader
+            />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Loading state</h3>
+            <SharedTable columns={genericColumns} rows={[]} loading stickyHeader />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Empty state</h3>
+            <SharedTable columns={genericColumns} rows={[]} emptyMessage="No audit records available." stickyHeader />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Error state</h3>
+            <SharedTable
+              columns={genericColumns}
+              rows={[]}
+              error="Unable to load data right now. Please try again later."
+              stickyHeader
+            />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Custom cell rendering</h3>
+            <SharedTable
+              columns={[
+                { id: 'name', label: 'Name', field: 'name', width: '30%' },
+                { id: 'status', label: 'Status', field: 'status', width: '20%' },
+                { id: 'action', label: 'Action', width: '20%', render: () => (
+                  <div className="flex gap-2">
+                    <SharedButton variant="text" size="small">
+                      View
+                    </SharedButton>
+                    <SharedButton variant="outline" size="small">
+                      Edit
+                    </SharedButton>
+                  </div>
+                ) },
+              ]}
+              rows={genericRows.slice(0, 3)}
+              stickyHeader
+            />
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Responsive behavior</h3>
+            <div className="overflow-x-auto">
+              <SharedTable
+                columns={[
+                  { id: 'name', label: 'Name', field: 'name', width: '260px' },
+                  { id: 'owner', label: 'Owner', field: 'owner', width: '180px' },
+                  { id: 'status', label: 'Status', field: 'status', width: '160px' },
+                  { id: 'risk', label: 'Risk', field: 'risk', width: '140px' },
+                  { id: 'updated', label: 'Updated', field: 'updated', width: '180px' },
+                  { id: 'amount', label: 'Amount', field: 'amount', align: 'right', width: '120px' },
+                ]}
+                rows={genericRows.slice(0, 4)}
+                stickyHeader
+                className="min-w-[760px]"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

@@ -1,1 +1,585 @@
-/* Global styles managed by Tailwind CSS in index.css */
+/* =========================================================
+   J&J GLOBAL THEME
+   Converted from the Next.js global.scss
+   ========================================================= */
+
+:root {
+  /* ---------- J&J Brand Colors ---------- */
+  --jj-red: #eb1700;
+  --jj-blue: #000099;
+  --jj-magenta: #c800a1;
+  --jj-black: #212121;
+  --jj-grey-dark: #63666a;
+  --jj-grey: #888b8d;
+  --jj-grey-light: #d8d8d8;
+  --jj-grey-extra-light: #f4f4f4;
+
+  --jj-red-dark: #801206;
+
+  /* ---------- Common Colors ---------- */
+  --black: #000000;
+  --grey-900: #101010;
+  --grey-dark: #343638;
+  --grey: #878787;
+  --grey-alt: #888b8d;
+  --grey-300: #c7c9cf;
+  --grey-light: #c0c0c0;
+  --grey-extra-light: #f4f4f6;
+  --white: #ffffff;
+
+  --blue-light: #f1f4ff;
+  --blue-extra-light: #f6f8ff;
+  --blue-bright: #0e65e8;
+
+  --cornflower: #8bb7f8;
+  --columbia: #c5dbfc;
+
+  --red-light: #ff5959;
+
+  --indigo: #005f86;
+  --pink-bright: #c800a1;
+  --magenta: #961a68;
+
+  --green-dark: #3a4b3e;
+  --grey-700: #63666a;
+  --green-300: #087d0d;
+  --green-light: #74cb52;
+
+  --orange: #ff8200;
+  --red-poppy: #e35050;
+  --red: #e95050;
+  --purple: #ae2573;
+
+  --grey-50: #ececec;
+
+  /* ---------- Violet ---------- */
+  --violet-5: #541980;
+  --violet-3: #8c3bbb;
+  --violet-2: #996bcb;
+  --violet-1: #b19beb;
+
+  /* ---------- Risk ---------- */
+  --risk-low: var(--green-300);
+  --risk-medium: var(--orange);
+  --risk-high: var(--red-poppy);
+  --risk-unknown: var(--jj-grey-dark);
+
+  /* ---------- Coverage ---------- */
+  --coverage-low: var(--red-poppy);
+  --coverage-medium: var(--orange);
+  --coverage-high: var(--green-300);
+  --coverage-unknown: var(--jj-grey-dark);
+
+  /* ---------- Theme ---------- */
+  --ara-theme-light-fill: var(--jj-grey);
+  --ara-theme-dark-fill: var(--jj-blue);
+
+  /* ---------- MUI ---------- */
+  --ara-mui-primary-dark: var(--jj-black);
+  --ara-mui-primary-main: var(--jj-blue);
+  --ara-mui-secondary-main: var(--jj-red);
+  --ara-mui-info-main: var(--blue-bright);
+
+  /* ---------- Common ---------- */
+  --ara-common-border-color: var(--jj-grey-light);
+  --ara-common-href: var(--blue-bright);
+
+  /* ---------- Body ---------- */
+  --ara-body-text: var(--jj-black);
+  --ara-body-bg: var(--white);
+
+  --ara-on-accent-body-text: var(--white);
+  --ara-on-accent-body-bg: #11115f;
+  --ara-on-accent-text-dim: #b5b1f1;
+  --ara-on-accent-border-color: #3f3faf;
+
+  /* ---------- Notification ---------- */
+  --ara-notification-bubble: var(--jj-red);
+  --ara-notification-date-text: var(--grey-dark);
+  --ara-notification-read-text: var(--jj-grey);
+
+  /* ---------- General ---------- */
+  --ara-general-accent-bg: var(--blue-light);
+  --ara-general-accent-border-color: var(--jj-blue);
+  --ara-general-alternate-bg: var(--jj-grey-extra-light);
+  --ara-general-alternate2-bg: var(--jj-grey-light);
+  --ara-general-divider: var(--grey-light);
+
+  /* ---------- Scrollbar ---------- */
+  --ara-scrollbar-bg: var(--jj-grey-light);
+  --ara-scrollbar-thumb: var(--jj-grey);
+
+  /* ---------- Text ---------- */
+  --ara-text-dim: var(--jj-grey-dark);
+  --ara-text-h1: var(--jj-black);
+  --ara-text-h2: var(--jj-black);
+  --ara-text-h3: var(--jj-grey-dark);
+  --ara-text-h4: var(--jj-grey);
+
+  /* ---------- Header ---------- */
+  --ara-header-bg: var(--white);
+  --ara-header-text: var(--black);
+  --ara-header-app-title-text: var(--jj-grey-dark);
+  --ara-header-nav-text: var(--black);
+  --ara-header-nav-active-border-color: var(--jj-red);
+
+  /* ---------- Filter ---------- */
+  --ara-filter-accordion-title: var(--jj-grey-dark);
+  --ara-filter-bg: var(--blue-extra-light);
+  --ara-filter-border-color: var(--jj-blue);
+  --ara-filter-chip-text: var(--jj-black);
+  --ara-filter-chip-bg: var(--white);
+  --ara-filter-chip-border-color: var(--jj-grey);
+  --ara-filter-toggle-icon: var(--jj-red);
+
+  /* ---------- Risk / Coverage ---------- */
+  --ara-risk-low: var(--green-300);
+  --ara-risk-medium: var(--orange);
+  --ara-risk-high: var(--red-poppy);
+  --ara-risk-unknown: var(--jj-grey-dark);
+
+  --ara-coverage-low: var(--red-poppy);
+  --ara-coverage-medium: var(--orange);
+  --ara-coverage-high: var(--green-300);
+  --ara-coverage-unknown: var(--jj-grey-dark);
+
+  /* ---------- Tables ---------- */
+  --ara-table-selected-row-accent: var(--jj-blue);
+  --ara-table-selected-row-bg: var(--blue-light);
+  --ara-table-header-text: var(--jj-grey);
+
+  /* ---------- Popover ---------- */
+  --ara-popover-header-text: var(--jj-blue);
+  --ara-popover-border-color: var(--jj-blue);
+  --ara-popover-text: var(--jj-grey-dark);
+  --ara-popover-bg: var(--white);
+
+  /* ---------- Tabs ---------- */
+  --ara-tabs-inactive-border-color: var(--jj-grey-extra-light);
+  --ara-tabs-active-border-color: var(--jj-red);
+
+  /* ---------- Tab List ---------- */
+  --ara-tab-list-bg: var(--jj-grey-extra-light);
+  --ara-tab-list-text: var(--jj-grey-dark);
+  --ara-tab-list-border-color: var(--jj-grey-light);
+
+  --ara-tab-list-active-bg: var(--jj-blue);
+  --ara-tab-list-active-text: var(--white);
+  --ara-tab-list-active-border-color: var(--jj-blue);
+
+  --ara-tab-list-disabled-bg: var(--grey);
+  --ara-tab-list-disabled-text: var(--jj-grey-dark);
+  --ara-tab-list-disabled-border: var(--jj-grey-dark);
+  --ara-tab-list-disabled-active-text: var(--grey-dark);
+
+  /* ---------- Checkbox ---------- */
+  --ara-checkbox-unchecked-fill: var(--jj-grey-light);
+  --ara-checkbox-checked-fill: var(--jj-red);
+
+  /* ---------- Yes / No ---------- */
+  --ara-yesno-yes-fill: var(--indigo);
+  --ara-yesno-no-fill: var(--pink-bright);
+
+  /* ---------- Banner ---------- */
+  --ara-banner-title-bg: var(--jj-red);
+  --ara-banner-title-bg-alt: var(--jj-red-dark);
+  --ara-banner-title-text: var(--white);
+}
+
+/* =========================================================
+   FONT
+   ========================================================= */
+
+@font-face {
+  font-family: "jj-circular";
+  src: url("/fonts/jj-circular-book.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "jj-circular";
+  src: url("/fonts/jj-circular-book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "jj-circular";
+  src: url("/fonts/jj-circular-bold.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "jj-circular";
+  src: url("/fonts/jj-circular-black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "jj-circular", Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  max-width: 100%;
+  color: var(--ara-body-text);
+  background-color: var(--ara-body-bg);
+}
+
+a {
+  color: var(--ara-common-href);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ara-scrollbar-thumb);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--ara-scrollbar-bg);
+  margin: 0.25rem;
+}
+
+
+/* =========================================================
+   MAIN / HEADER
+   ========================================================= */
+
+main {
+  overflow-x: auto;
+  color: var(--ara-body-text);
+  background-color: var(--ara-body-bg);
+}
+
+header {
+  position: relative;
+  z-index: 1;
+  background-color: var(--ara-header-bg);
+  color: var(--ara-header-text);
+}
+
+header .menu {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 5rem;
+}
+
+main,
+header {
+  min-width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  color: var(--ara-text-h1);
+}
+
+h2 {
+  text-transform: none;
+  color: var(--ara-text-h2);
+}
+
+h3 {
+  font-size: 0.875rem;
+  color: var(--ara-text-h3);
+}
+
+h4 {
+  font-size: 0.875rem;
+  color: var(--ara-text-h4);
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ara-text-dim);
+}
+
+.dim {
+  color: var(--ara-text-dim);
+}
+
+.dim.very-dim {
+  opacity: 0.35;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.nav a {
+  font-weight: 500;
+  color: var(--ara-header-nav-text);
+  border-bottom: 6px transparent solid;
+  padding: 0 0.25rem 0.2rem;
+  text-decoration: none;
+}
+
+.nav a.active {
+  border-bottom-color: var(--ara-header-nav-active-border-color);
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+textarea {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1rem;
+  min-height: 4rem;
+  max-height: 6rem;
+}
+
+textarea:focus-visible {
+  outline-width: 1px;
+  border-color: var(--jj-blue);
+  outline-color: var(--jj-blue);
+}
+
+
+/* =========================================================
+   COMMON BLOCK
+   ========================================================= */
+
+.ara-block {
+  margin-bottom: 3rem;
+  border: 1px solid var(--ara-common-border-color);
+  border-radius: 4px;
+  overflow: auto;
+  max-width: 100%;
+}
+
+.ara-block.with-bg {
+  background-color: var(--ara-body-bg);
+}
+
+.ara-block.with-shadow,
+.ara-block.inner,
+.ara-block .block {
+  box-shadow: 0 4px 30px rgba(158, 158, 158, 0.25);
+}
+
+.ara-block.border-none,
+.ara-block .block {
+  border: none;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.MuiTableRow-root.selected-row td:first-child {
+  box-shadow: 4px 0 inset var(--jj-blue);
+}
+
+.MuiTable-root.new-table-design th {
+  font-size: 12px;
+  background-color: #f8f8f8;
+  font-weight: 500;
+}
+
+.MuiTable-root.new-table-design th:first-child,
+.MuiTable-root.new-table-design td:first-child {
+  padding-left: 10px;
+}
+
+.MuiTable-root.new-table-design th:last-child,
+.MuiTable-root.new-table-design td:last-child {
+  padding-right: 10px;
+}
+
+
+/* =========================================================
+   RISK
+   ========================================================= */
+
+.color-risk-high {
+  color: var(--risk-high);
+}
+
+.color-risk-medium {
+  color: var(--risk-medium);
+}
+
+.color-risk-low {
+  color: var(--risk-low);
+}
+
+.risk-score-high,
+.risk-score-medium,
+.risk-score-low {
+  font-weight: bold;
+  width: 6rem;
+  border-radius: 0.375rem;
+  display: flex;
+  justify-content: center;
+}
+
+.risk-score-high {
+  color: var(--risk-high);
+}
+
+.risk-score-medium {
+  color: var(--risk-medium);
+}
+
+.risk-score-low {
+  color: var(--risk-low);
+}
+
+.non-risk-score-high,
+.non-risk-score-medium,
+.non-risk-score-low {
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+}
+
+.non-risk-score-high {
+  background-color: var(--risk-high);
+}
+
+.non-risk-score-medium {
+  background-color: var(--risk-medium);
+}
+
+.non-risk-score-low {
+  background-color: var(--risk-low);
+}
+
+
+/* =========================================================
+   TAB LIST
+   ========================================================= */
+
+.tab-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab-list li {
+  display: inline-block;
+  min-width: 5rem;
+  padding: 0.25rem 1.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-right: -1px;
+  margin-bottom: 0.5rem;
+  color: var(--ara-tab-list-text);
+  background-color: var(--ara-tab-list-bg);
+  border: 1px solid var(--ara-tab-list-border-color);
+}
+
+.tab-list li.active {
+  color: var(--ara-tab-list-active-text);
+  background-color: var(--ara-tab-list-active-bg);
+  border-color: var(--ara-tab-list-active-border-color);
+}
+
+.tab-list.disabled {
+  pointer-events: none;
+}
+
+.tab-list.disabled li {
+  cursor: not-allowed;
+  color: var(--ara-tab-list-disabled-text);
+  background-color: var(--ara-tab-list-disabled-bg);
+  border-color: var(--ara-tab-list-disabled-border);
+}
+
+
+/* =========================================================
+   BANNER TITLE
+   ========================================================= */
+
+.banner-title {
+  position: relative;
+  display: inline-block;
+  height: 2rem;
+  line-height: 2rem;
+  padding-right: 1rem;
+  background-color: var(--ara-banner-title-bg);
+  color: var(--ara-banner-title-text);
+  text-transform: none;
+}
+
+.banner-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2.5rem;
+  width: 2.5rem;
+  height: 2rem;
+  background-color: var(--ara-banner-title-bg);
+}
+
+.banner-title::after {
+  content: "";
+  position: absolute;
+  top: 2rem;
+  left: -2.5rem;
+  width: 1rem;
+  border-top: 0.75rem solid var(--ara-banner-title-bg-alt);
+  border-left: 1rem solid transparent;
+}

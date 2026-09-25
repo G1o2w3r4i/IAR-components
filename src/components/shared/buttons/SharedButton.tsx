@@ -1,5 +1,4 @@
 import React from 'react';
-import ButtonBase from '@mui/material/ButtonBase';
 import CircularProgress from '@mui/material/CircularProgress';
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -146,28 +145,27 @@ export const SharedButton: React.FC<SharedButtonProps> = ({
   const widthClass = fullWidth ? 'w-full' : 'inline-flex';
 
   return (
-    <ButtonBase
-      component="button"
+    <button
       type={type}
       disabled={isDisabled}
       onClick={onClick}
       ref={buttonRef}
       aria-label={ariaLabel}
-      aria-busy={loading}
+      aria-busy={loading || undefined}
       title={title}
-      focusRipple={false}
       className={[
         // Layout
         widthClass,
-        'items-center justify-center',
+        'inline-flex items-center justify-center',
         // Typography
         'font-semibold tracking-wide leading-none whitespace-nowrap',
         // Shape
         'rounded',
         // Transition
         'transition-all duration-150',
-        // State ring — outline-none resets MUI default, we handle focus-visible in variant
-        'outline-none',
+        // Native appearance reset for clean Tailwind rendering
+        'appearance-none border-0 outline-none',
+        isDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
         // Variant + disabled
         variantClass,
         // Size (height, padding, text-size, gap)
@@ -203,7 +201,7 @@ export const SharedButton: React.FC<SharedButtonProps> = ({
           {endIcon}
         </span>
       )}
-    </ButtonBase>
+    </button>
   );
 };
 

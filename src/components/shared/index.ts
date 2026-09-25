@@ -31,3 +31,7 @@ export type { SharedTextAreaProps } from './inputs/SharedTextArea';
 // New: Button
 export { SharedButton } from './buttons/SharedButton';
 export type { SharedButtonProps, SharedButtonVariant, SharedButtonSize } from './buttons/SharedButton';
+
+// New: Table
+export { SharedTable } from './SharedTable';
+export type { SharedTableProps, TableColumn, SharedTableSortDirection } from './SharedTable';
